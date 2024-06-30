@@ -26,12 +26,12 @@
 </div>
 
 {% if productos %}
-<div class="container-fluid">
+<div class="container pt-4 py-4">
   <div class="row">
     {% for producto in productos %}
-    <div class="card col-sm-12 col-md-6 col-lg-3 col-xl-2 border border-1 m-2 pt-3 pb-4" style="width: 15.2rem;">
+    <div class="card col p-2 col-sm_12 col-md-6 col-lg-4 col-xl-3  border-1 m-2 pt-3 pb-4" style="width: 15.2rem;">
       <a href="{% url 'ficha' producto.id %}" class="link-bloque">
-        <img src="/media/{{ producto.imagen }}" class="inicio-producto-imagen" alt=""><br>
+        <img src="/media/{{ producto.imagen }}" class="card-img-top" alt=""><br>
         <div class="card-body">
           <h6 class="card-title">
             {{ producto.nombre }}
