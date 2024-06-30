@@ -11,20 +11,72 @@
         (VER COMENTARIO "COMBOBOX DEPENDIENTES PARA CATEGORIA Y PRODUCTO" en bodega.js)
     -->
 
-    <div class="instrucciones-para-el-alumno">
-        INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-        - Pega tu código html de la página bodega <br>
-    </div>
-
     <form id="form" method="POST">
 
         {% csrf_token %}
 
-        <div class="instrucciones-para-el-alumno">
-            INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-            - Pega tu código html del formulario <br>
-            - Si quieres puedes usar los formularios de django de más abajo
-        </div>
+        <div class="container d-flex justify-content-center">
+            <div class="card" style="width: 40rem; margin-right: 20px;">
+              <div class="row">
+                <!-- campos del registro de usuario -->
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3 fw-bold">
+                    <p class="ficha_titulo" style="margin-top: 30px; margin-left: 130px;">
+                      Bodega
+                    </p>
+                    <label for="rut" class="for-label" style="margin-left: 60px;">Categoria</label>
+                    <div class="dropdown"style="margin-left: 60px;">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                        Seleccione categoria
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Terror</a></li>
+                        <li><a class="dropdown-item" href="#">Accion</a></li>
+                        <li><a class="dropdown-item" href="#">Otro</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="mb-3 fw-bold">
+                    <label for="nombres" class="for-label" style="margin-left: 60px;">Nombre</label>
+                    <div class="dropdown" style="margin-left: 60px;">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Seleccione Nombre
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Resident Evil 4</a></li>
+                        <li><a class="dropdown-item" href="#">Titan Fall</a></li>
+                        <li><a class="dropdown-item" href="#">Otro</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="mb-12 fw-bold">
+                    <label for="Cantidad" class="for-label" style="margin-left: 60px;">Cantidad</label>
+                    <div class="col-10" style="margin-left: 60px;">
+                      <input type="text" class="form-control " id="cantidad" placeholder="Ej: 3" required>
+                    </div>
+                    <div class="invalid-feedback">Debe llenar el campo cantidad</div>
+                  </div>
+                  <br>
+                  <div style="margin-left: 200px;">
+                    <button type="button" class="btn btn-primary" >Nuevo</button>
+                  </div>
+                  
+                  
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <img id="cuadro-imagen" src="{% static 'core/img/sin-imagen.png' %}">
+                    <div style="margin-top: 64px; margin-bottom: 30px;">
+                      <button type="button" class="btn btn-primary" >Agregar</button>
+                    </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+    
+          </div>
 
         {{ form|as_bootstrap_form }}
 
@@ -36,12 +88,43 @@
 
     {% if productos %}
 
-        <div class="instrucciones-para-el-alumno">
-            INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-            - Pega tu código html de la tabla de productos en bodega<br>
-            -Puedes usar las dos columnas de abajo para ver la foto y 
-             eliminar productos en bodega
-        </div>
+    <div style="margin-left: 1px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Terror</td>
+              <td>Resident Evil 4</td>
+              <td>Vendido</td>
+              <td>
+                <button type="reset" class="btn btn-primary btn-block" style="margin-bottom: 5px;">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Accion</td>
+              <td>Titan Fall</td>
+              <td>Vendido</td>
+              <td>
+                <button type="reset" class="btn btn-primary btn-block" style="margin-bottom: 5px;">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
         
         <table id="tabla-principal" class="table table-hover">
             <thead>
@@ -74,6 +157,107 @@
         </table>
 
     {% endif %}
+
+    <div class="container d-flex justify-content-center">
+        <div class="card" style="width: 40rem; margin-right: 20px;">
+          <div class="row">
+            <!-- campos del registro de usuario -->
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3 fw-bold">
+                <p class="ficha_titulo" style="margin-top: 30px; margin-left: 130px;">
+                  Bodega
+                </p>
+                <label for="rut" class="for-label" style="margin-left: 60px;">Categoria</label>
+                <div class="dropdown"style="margin-left: 60px;">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                    Seleccione categoria
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Terror</a></li>
+                    <li><a class="dropdown-item" href="#">Accion</a></li>
+                    <li><a class="dropdown-item" href="#">Otro</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mb-3 fw-bold">
+                <label for="nombres" class="for-label" style="margin-left: 60px;">Nombre</label>
+                <div class="dropdown" style="margin-left: 60px;">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Seleccione Nombre
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Resident Evil 4</a></li>
+                    <li><a class="dropdown-item" href="#">Titan Fall</a></li>
+                    <li><a class="dropdown-item" href="#">Otro</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mb-12 fw-bold">
+                <label for="Cantidad" class="for-label" style="margin-left: 60px;">Cantidad</label>
+                <div class="col-10" style="margin-left: 60px;">
+                  <input type="text" class="form-control " id="cantidad" placeholder="Ej: 3" required>
+                </div>
+                <div class="invalid-feedback">Debe llenar el campo cantidad</div>
+              </div>
+              <br>
+              <div style="margin-left: 200px;">
+                <button type="button" class="btn btn-primary" >Nuevo</button>
+              </div>
+              
+              
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <img id="cuadro-imagen" src="{% static 'core/img/sin-imagen.png' %}">
+                <div style="margin-top: 64px; margin-bottom: 30px;">
+                  <button type="button" class="btn btn-primary" >Agregar</button>
+                </div>
+            </div>
+            <div style="margin-left: 1px;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Terror</td>
+                    <td>Resident Evil 4</td>
+                    <td>Vendido</td>
+                    <td>
+                      <button type="reset" class="btn btn-primary btn-block" style="margin-bottom: 5px;">
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Accion</td>
+                    <td>Titan Fall</td>
+                    <td>Vendido</td>
+                    <td>
+                      <button type="reset" class="btn btn-primary btn-block" style="margin-bottom: 5px;">
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+
+      </div>
+
 {% endblock content %}
 
 {% block script %}
