@@ -49,162 +49,121 @@
   {% if productos %} 
   
   {% endcomment %}
+
+    <div class="card container">
+      <div class="card-body">
+        <p class="ficha_titulo text-center py-4 pt-4" >Mantenedor de productos</p>
+      <section>
+        <br><br>
+        <form class="row g-3 needs-validation" action="" novalidate>
+          <div class="contanier-fluid bg-white py-4 pt-4" style="border-radius: 10px;">
+            <div class="row">
+              <div class="col-sm-12 col-md-6 col-lg-6" style="padding-top: 0; padding-left: 50px;">
   
-    <!-- <table id="tabla-principal" class="table table-hover">
-        <thead>
-            <tr>
-                <th> ID </th>
-                <th> Categoría </th>
-                <th> Nombre </th>
-                <th> Descripción </th>
-                <th> Precio </th>
-                <th> %Subs </th>
-                <th> %Oferta </th>
-                <th> Imagen </th>
-                <th> Editar </th>
-                <th> Eliminar </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for producto in productos %}
+                <div  class="mb-3 fw-bold py-3" >
+                  <label for="id_producto" class="form-label-1">ID producto</label>
+                  <input type="text" class="form-control" id="id_producto" value="" required>
+                </div>
+                <div class="mb-3 fw-bold py-3">
+                  <label for="validationDefault04" class="form-label-1">Categoria</label>
+                  <select class="form-select" id="validationDefault04" required>
+                    <option selected disabled value=""></option>
+                    <option>Nintendo 64</option>
+                    <option>Juego Xbox</option>
+                    <option>PS4</option>
+                  </select>
+                </div>
+                <div class="mb-3 fw-bold py-3">
+                  <label for="nombre_producto" class="form-label-1">Nombre Producto</label>
+                  <input type="text" class="form-control" id="nombre_producto" placeholder="Ej: Mario Kart 8" required>
+                </div>
+                <div class="mb-3 fw-bold py-3">
+                  <label for="descripcion_producto" class="form-label-1">Descripción</label>
+                  <textarea type="text" class="form-control" id="descripcion_producto" rows="3" placeholder="Ej: " required></textarea>
+                </div>
+                <div class="mb-3 fw-bold py-3">
+                  <label for="precio_producto" class="form-label-1">Precio</label>
+                  <input type="text" class="form-control" id="precio_producto" required>
+                </div>
+                <div class="mb-3 fw-bold py-3">
+                  <label for="descu_producto" class="form-label-1"> % Descuento Suscriptor</label>
+                  <input type="text" class="form-control" id="descu_producto" required>
+                </div>
+                <div class="mb-3 fw-bold py-3">
+                  <label for="descu_oferta" class="form-label-1"> % Descuento por oferta</label>
+                  <input type="text" class="form-control " id="descu_oferta" required>
+                </div>
+                <div class="d-grid gap-2 d-md-block" style=" margin-left: 10px; padding: 50px;">
+                  <button class="btn btn-primary" type="button" style="margin-right: 30px;">Guardar</button>
+                  <a class="btn btn-primary" href="{% url 'productos' 'crear' '0' %}"> Nuevo </a>
+                  {% if form.instance.id %}
+                    <a class="btn btn-primary"  href="{% url 'productos' 'eliminar' form.instance.id %}"> Eliminar </a>
+                  {% endif %}
+                </div>
                 
-              producto.id
-              producto.categoria
-              producto.nombre
-              producto.descripcion
-              producto.precio|formatear_dinero
-              producto.descuento_subscriptor|formatear_porcentaje
-              producto.descuento_oferta|formatear_porcentaje
-              <td>
-                  <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
-              </td>
-              <td>
-                  <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-primary btn-sm"> Editar </a>
-              </td>
-              <td>
-                  <form method="delete">
-                      <a href="{% url 'productos' 'eliminar' producto.id %}" class="btn btn-danger btn-sm"> Eliminar </a>
-                  </form>
-              </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table> -->
+              </div>
+              <!-- foto de juego-->
+              {% if form.imagen.value %}
+                <img id="cuadro-imagen" src="/media/{{ form.imagen.value }}">
+              {% else %}
+                <img id="cuadro-imagen" src="{% static 'core/img/sin-imagen.png' %}">
+              {% endif %}
+              
+              {{ form.imagen|as_bootstrap_field }}
+              
+            </div>
+            <section class="text-center" style="padding-left: 10px; " >
+              <table id="tabla-principal" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> ID </th>
+                        <th> Categoría </th>
+                        <th> Nombre </th>
+                        <th> Descripción </th>
+                        <th> Precio </th>
+                        <th> %Subs </th>
+                        <th> %Oferta </th>
+                        <th> Imagen </th>
+                        <th> Editar </th>
+                        <th> Eliminar </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}  
+                      producto.id
+                      producto.categoria
+                      producto.nombre
+                      producto.descripcion
+                      producto.precio|formatear_dinero
+                      producto.descuento_subscriptor|formatear_porcentaje
+                      producto.descuento_oferta|formatear_porcentaje
+                      <td>
+                          <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
+                      </td>
+                      <td>
+                          <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-primary btn-sm"> Editar </a>
+                      </td>
+                      <td>
+                          <form method="delete">
+                              <a href="{% url 'productos' 'eliminar' producto.id %}" class="btn btn-danger btn-sm"> Eliminar </a>
+                          </form>
+                      </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </section>
+          </div>
+        </form>
+      </section>
+      </div>
+    </div>
 
   {% comment %}     
   
   {% endif %}
   
   {% endcomment %} 
-
-  <div class="card container">
-    <div class="card-body">
-      <p class="ficha_titulo text-center py-4 pt-4" >Mantenedor de productos</p>
-    <section>
-      <br><br>
-      <form class="row g-3 needs-validation" action="" novalidate>
-        <div class="contanier-fluid bg-white py-4 pt-4" style="border-radius: 10px;">
-          <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6" style="padding-top: 0; padding-left: 50px;">
-
-              <div  class="mb-3 fw-bold py-3" >
-                <label for="id_producto" class="form-label-1">ID producto</label>
-                <input type="text" class="form-control" id="id_producto" value="" required>
-              </div>
-              <div class="mb-3 fw-bold py-3">
-                <label for="validationDefault04" class="form-label-1">Categoria</label>
-                <select class="form-select" id="validationDefault04" required>
-                  <option selected disabled value=""></option>
-                  <option>Nintendo 64</option>
-                  <option>Juego Xbox</option>
-                  <option>PS4</option>
-                </select>
-              </div>
-              <div class="mb-3 fw-bold py-3">
-                <label for="nombre_producto" class="form-label-1">Nombre Producto</label>
-                <input type="text" class="form-control" id="nombre_producto" required>
-              </div>
-              <div class="mb-3 fw-bold py-3">
-                <label for="descripcion_producto" class="form-label-1">Descripción</label>
-                <textarea type="text" class="form-control" id="descripcion_producto" rows="3"  required></textarea>
-              </div>
-              <div class="mb-3 fw-bold py-3">
-                <label for="precio_producto" class="form-label-1">Precio</label>
-                <input type="text" class="form-control" id="precio_producto" required>
-              </div>
-              <div class="mb-3 fw-bold py-3">
-                <label for="descu_producto" class="form-label-1"> % Descuento Suscriptor</label>
-                <input type="text" class="form-control" id="descu_producto" required>
-              </div>
-              <div class="mb-3 fw-bold py-3">
-                <label for="descu_oferta" class="form-label-1"> % Descuento por oferta</label>
-                <input type="text" class="form-control " id="descu_oferta" required>
-              </div>
-              <div class="d-grid gap-2 d-md-block" style=" margin-left: 10px; padding: 50px;">
-                <button class="btn btn-primary" type="button" style="margin-right: 30px;">Guardar</button>
-                <a class="btn btn-primary" href="{% url 'productos' 'crear' '0' %}"> Nuevo </a>
-                {% if form.instance.id %}
-                  <a class="btn btn-primary"  href="{% url 'productos' 'eliminar' form.instance.id %}"> Eliminar </a>
-                {% endif %}
-              </div>
-              
-            </div>
-            <!-- foto de juego-->
-            {% if form.imagen.value %}
-              <img id="cuadro-imagen" src="/media/{{ form.imagen.value }}">
-            {% else %}
-              <img id="cuadro-imagen" src="{% static 'core/img/sin-imagen.png' %}">
-            {% endif %}
-            
-            {{ form.imagen|as_bootstrap_field }}
-            
-          </div>
-          <section class="text-center" style="padding-left: 10px; " >
-            <table id="tabla-principal" class="table table-hover">
-              <thead>
-                  <tr>
-                      <th> ID </th>
-                      <th> Categoría </th>
-                      <th> Nombre </th>
-                      <th> Descripción </th>
-                      <th> Precio </th>
-                      <th> %Subs </th>
-                      <th> %Oferta </th>
-                      <th> Imagen </th>
-                      <th> Editar </th>
-                      <th> Eliminar </th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for producto in productos %}  
-                    producto.id
-                    producto.categoria
-                    producto.nombre
-                    producto.descripcion
-                    producto.precio|formatear_dinero
-                    producto.descuento_subscriptor|formatear_porcentaje
-                    producto.descuento_oferta|formatear_porcentaje
-                    <td>
-                        <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
-                    </td>
-                    <td>
-                        <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-primary btn-sm"> Editar </a>
-                    </td>
-                    <td>
-                        <form method="delete">
-                            <a href="{% url 'productos' 'eliminar' producto.id %}" class="btn btn-danger btn-sm"> Eliminar </a>
-                        </form>
-                    </td>
-                      </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-          </section>
-        </div>
-      </form>
-    </section>
-    </div>
-  </div>
 
 {% endblock content %}
 
