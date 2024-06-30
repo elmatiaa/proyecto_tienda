@@ -111,6 +111,8 @@ def ingresar(request):
 
     return render(request, "core/ingresar.html", context)
 
+def administracion (request):
+    return render (request, 'core/administracion.html')
 @login_required
 def salir(request):
     nombre = request.user.first_name

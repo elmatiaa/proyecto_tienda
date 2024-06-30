@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm, Form
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Categoria, Producto, Perfil
+from .models import Categoria, Producto, Bodega, Perfil
 
 # *********************************************************************************************************#
 #                                                                                                          #
@@ -27,7 +27,15 @@ class ProductoForm(ModelForm):
     class Meta:
         model = Producto
         fields = '__all__'
-
+        widgets = {
+            'descripcion' : forms.Textarea(),
+            'imagen': forms.FileInput(attrs={'class':'d-none'})
+        } 
+        labals ={
+            'nombre' : 'Nombre',
+            'descuento_subscriptor': 'Subscriptor(%)',
+            'descuento_oferta': 'Oferta(%)',
+        }
 # El formulario de bodega está listo, no necesitas modificarlo
 class BodegaForm(Form):
     categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), label='Categoría')
