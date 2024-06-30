@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+
+<div class="instrucciones-para-el-alumno">
+    INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
+    - PONE EL CODIGO HTML DE TU FICHA <br>
+    - USA LOS CAMPOS DE TU FICHA  <br>
+    - SI QUIERES PUEDES USAR EL LOS CAMPOS QUE SE TE ENTREGA <br>
+  </div>
+
+    <form method="post" id="formulario-ficha">
+
+        {% csrf_token %}
+
+        <div>
+        {{ imagen }} <br>
+        {{ nombre }} <br>
+        {{ html_estado|safe }}  <br>
+        {{ html_precio|safe }}  <br>
+        {{ descripcion }}  <br>
+        {{ html_stock|safe }}  <br>
+        </div>
+        
+        <div>
+            <input type="hidden" id="accion">
+            <a href="{% url 'comprar_ahora' %}" class="btn btn-primary ancho-160px"> 
+                Comprar ahora 
+            </a>
+            <a href="{% url 'agregar_producto_al_carrito' id %}" class="btn btn-secondary ancho-160px"> 
+                Agregar al carrito 
+            </a>
+        </div>
+    </form>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 ">
+            <div class="card mb-3">
+              <div class="d-flex justify-content-center align-items-center">
+                <img src="core/static/core/img/jueguito1.png" class="card-img-top-1" alt="..." />
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 ">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h1 class="ficha_tecnica">Ficha de Producto:</h1>
+                <p class="ficha_titulo">Splatoon 3</p>
+                <p class="ficha_disponible">Stock disponible en bodega (40)</p>
+                <p class="ficha_precio">Precio oferta:</p>
+                <p class="ficha_precio" style="color: red; font-weight: bold">
+                  $20.000
+                </p>
+                <p class="ficha_precio_r">
+                  Precio real: <s style="color: purple">$49.000</s>
+                </p>
+                <p class="ficha_style">Descripción:</p>
+                <p class="ficha_style">
+                  Juego de acción en tercera persona enfocado en la jugabilidad
+                  online. Desarrollado por Nintendo y Monolith Soft para la
+                  consola Nintendo Switch.
+                </p>
+                <!-- boton de nuestra pagina -->
+                <!-- <a class="btn btn-primary" href="ingresar.html" role="button">
+                  <i class="fa-solid fa-cart-plus"></i>Comprar ahora
+                </a> -->
+
+                <a href="{% url 'comprar_ahora' %}" class="btn btn-primary ancho-160px"> 
+                    Comprar ahora 
+                </a>
+
+                <!-- boton de nuestra pagina -->
+                <!-- <a class="btn btn-primary" href="ingresar.html" role="button">
+                  <i class="fa-solid fa-cart-plus"></i>Añadir al carrito
+                </a> -->
+
+                <a href="{% url 'agregar_producto_al_carrito' id %}" class="btn btn-secondary ancho-160px"> 
+                    Agregar al carrito 
+                </a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static 'core/js/ficha.js' %}"></script>
+{% endblock script %}

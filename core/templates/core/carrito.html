@@ -1,0 +1,206 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    
+    <!-- <h1> Carrito de compras </h1>
+
+    <table id="tabla-principal" class="table table-hover">
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> Categoría </th>
+                <th> Producto </th>
+                <th> Precio </th>
+                <th> % Descto <br> Subscriptor </th>
+                <th> % Descto <br> Oferta </th>
+                <th> % Descto <br> Total </th>
+                <th class="text-end"> Descuentos </th>
+                <th class="text-end"> Precio a pagar </th>
+                <th> Opciones </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalle_carrito %}
+                <tr>
+                    <td> {{ item.id }} </td>
+                    <td> {{ item.producto.categoria.nombre }} </td>
+                    <td> {{ item.producto.nombre }} </td>
+                    <td> {{ item.precio|formatear_dinero }} </td>
+                    <td> {{ item.descuento_subscriptor|formatear_porcentaje }} </td>
+                    <td> {{ item.descuento_oferta|formatear_porcentaje }} </td>
+                    <td> {{ item.descuento_total|formatear_porcentaje }} </td>
+                    <td class="text-end"> {{ item.descuentos|formatear_dinero }} </td>
+                    <td class="text-end"> {{ item.precio_a_pagar|formatear_dinero }} </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{% url 'ficha' item.producto.id %}" class="btn btn-sm btn-primary"> Detalle </a> 
+                            <a href="{% url 'eliminar_producto_en_carrito' item.id %}" class="btn btn-sm btn-danger"> Eliminar </a> 
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="fw-bold"> Precio sin IVA </td>
+                <td class="fw-bold text-end"> {{ monto_sin_iva|formatear_dinero }} </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="fw-bold"> Valor del IVA (19%) </td>
+                <td class="fw-bold text-end"> {{ iva|formatear_dinero }} </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="fw-bold"> Total a pagar </td>
+                <td class="fw-bold text-end"> {{ total_a_pagar|formatear_dinero }} </td>
+                <td></td>
+            </tr>
+        </tfoot>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="{% url 'vaciar_carrito' %}" class="btn btn-danger"> Vaciar carrito </a>
+        <a href="#" class="btn btn-success"> Continuar al pago </a>
+    </div> -->
+
+    <div class="card container" style="width: 90rem; ">
+        <div class="card-body">
+          <p class="ficha_titulo" style="margin-left: 250px;">Mi carrito de compras</p>
+          <section class="text-center">
+            <table id="tabla-principal" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th> ID </th>
+                        <th> Categoría </th>
+                        <th> Producto </th>
+                        <th> Precio </th>
+                        <th> % Descto <br> Subscriptor </th>
+                        <th> % Descto <br> Oferta </th>
+                        <th> % Descto <br> Total </th>
+                        <th class="text-end"> Descuentos </th>
+                        <th class="text-end"> Precio a pagar </th>
+                        <th> Opciones </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detalle_carrito %}
+                        <tr>
+                            <td> {{ item.id }} </td>
+                            <td> {{ item.producto.categoria.nombre }} </td>
+                            <td> {{ item.producto.nombre }} </td>
+                            <td> {{ item.precio|formatear_dinero }} </td>
+                            <td> {{ item.descuento_subscriptor|formatear_porcentaje }} </td>
+                            <td> {{ item.descuento_oferta|formatear_porcentaje }} </td>
+                            <td> {{ item.descuento_total|formatear_porcentaje }} </td>
+                            <td class="text-end"> {{ item.descuentos|formatear_dinero }} </td>
+                            <td class="text-end"> {{ item.precio_a_pagar|formatear_dinero }} </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'ficha' item.producto.id %}" class="btn btn-sm btn-primary"> Detalle </a> 
+                                    <a href="{% url 'eliminar_producto_en_carrito' item.id %}" class="btn btn-sm btn-danger"> Eliminar </a> 
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="fw-bold"> Precio sin IVA </td>
+                        <td class="fw-bold text-end"> {{ monto_sin_iva|formatear_dinero }} </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="fw-bold"> Valor del IVA (19%) </td>
+                        <td class="fw-bold text-end"> {{ iva|formatear_dinero }} </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="fw-bold"> Total a pagar </td>
+                        <td class="fw-bold text-end"> {{ total_a_pagar|formatear_dinero }} </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+                </tbody>
+            </table>
+          </section>
+  
+          <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom: 20px; padding-right: 20px;">
+            <label for="Precio-sin-iva" style="font-weight: bold;">Precio sin iva: </label>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="Precio-sin-iva" placeholder="$17.640" disabled>
+            </div>
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom: 20px; padding-right: 20px;">
+            <label for="Valor-iva" style="font-weight: bold;">Valor iva: </label>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="Valor-iva" placeholder="$3.350" disabled>
+            </div>
+          </div>
+  
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom: 20px; padding-right: 20px;">
+            <label for="Total-pagar" style="font-weight: bold;">Total a pagar: </label>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="Total-pagar" placeholder="$20.990" disabled>
+            </div>
+          </div> -->
+  
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom: 20px; padding-right: 20px;">
+            <!-- <button class="btn btn-primary me-md-2" type="button">Cancelar Compra</button> -->
+            <a href="{% url 'vaciar_carrito' %}" class="btn btn-danger"> Vaciar carrito </a>
+            <!-- <a href="boleta.html" class="btn btn-primary">Pagar</a> -->
+            <a href="#" class="btn btn-success"> Continuar al pago </a>
+          </div>
+        </div>
+      </div>
+          
+      <div >
+        <br>
+        <a href="ropa.html" style="margin-left: 500px;"> Click aqui para entrar a pagina concurso.</a>
+        <p>
+     </div>
+    
+{% endblock content %}

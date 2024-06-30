@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+
+<div class="instrucciones-para-el-alumno">
+  INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
+  - Pagina para ingresar a la tienda <br>
+  - Pone aquí tu formulario <br>
+  - Si quieres puedes usar el formulario que se te entrega, pero debes cambiar su gráfica con la tuya <br>
+  - Si quieres mantener tu propio formulario, debes fijarte que tenga los "id" y "name" del formulario de Django <br>
+  - Por ejemplo, si tu campo se llama "username", debes usar los atributos <b>name="username"</b> y <b>id="id_username"</b> (Django le antepone "id_" al nombre del campo)
+</div>
+  
+  <div class="row justify-content-center">
+    <form id="form" method="POST" class="col-5 border border-3 p-4">
+
+      {% csrf_token %} 
+      
+      <!-- Botones -->
+      {{ form|as_bootstrap_form }}
+      
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary"> Ingresar </button>
+      </div>
+      
+    </form>
+  </div>
+
+  <div class="container mt-5" class="centrado">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div>
+          <img src="img/logo_xv_lg.png" alt="" style="padding-left: 30px" />
+        </div>
+
+        <div class="  container">
+          <section>
+            <form class="row g-3 needs-validation" action="" novalidate>
+              <div class="contanier-fluid bg-white py-4 pt-4" style="border-radius: 10px;">
+                <div class="row">
+                  <p class="ficha_titulo" style="text-align: center; padding-bottom: 20px;">
+                    Iniciar Sesión
+                  </p>
+                  <div style="padding: 60px;">
+                    <div class="mb-5 fw-bold" >
+                      <label for="cuenta" style="text-align: left;"><b>Correo:</b></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cuenta"
+                        name="cuenta"
+                        placeholder="Ingrese tu correo"
+                      />
+                    </div>
+                    <label for="contrasena" style="text-align: left;"><b>Contraseña:</b></label> 
+                    <div class="mb-5 fw-bold" >
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="contrasena"
+                        name="contrasena"
+                        placeholder="Ingrese su contraseña"
+                      />
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary btn-block">
+                        Ingresar
+                      </button>
+                      <div >
+                        <br>
+                        <a href="registro.html"> Registrarme</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="ingresar.html">Olvide mi contraseña</a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+        <!-- <div class="py-4 pt-4" style="text-align: center;">
+                  <a href="administracion.html"> Click aqui para simular ingreso como administrador</a>
+                  <p>
+                    <br>
+                  <a href="mis_datos.html" class="py-4 pt-4">Click aqui para simular ingreso como cliente</a>
+                  </p>
+              </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Combobox de usuarios (QUITAR EN VERSION DE PRODUCCION DEL SOFTWARE) -->
+  <!-- NO LO BORRES PARA QUE PUEDAS HACER TUS PRUEBAS MAS RAPIDAMENTE  -->
+  {% include 'common/combobox_usuarios.html' %}
+  
+{% endblock content %}
+
+{% block script %}
+  <script src="{% static 'core/js/ingresar.js' %}"></script>
+{% endblock script %}
