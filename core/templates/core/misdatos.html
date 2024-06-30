@@ -1,0 +1,178 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    
+  <form id="form" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <!-- AREA DE BOTONES -->
+    <div class="mt-2 text-center">
+
+      <!-- <button type="submit"> Actualizar mis datos </button> -->
+
+      <!-- AREA DE BOTON DE SELECCIONAR IMAGEN: Reemplaza el botón "Seleccionar archivo" por otro con Bootstrap (VER COMENTARIO "BOTON IMAGEN" en script.js) -->
+      <!-- <button onclick="event.preventDefault(); document.getElementById('id_imagen').click();"> Seleccionar imagen </button>   -->
+
+    </div>
+
+  </form>
+
+  <div id="menu_cli"></div>
+    <br><br> 
+    <div class="container">
+      <section>
+        <form
+          class="row g-3 needs-validation"
+          id="formulario-registro"
+          action=""
+        >
+          <div
+            class="contanier-fluid bg-white py-4 pt-4"
+            style="border-radius: 10px"
+          >
+            <div class="row">
+              <!-- campos del registro de usuario -->
+              <div class="col-sm-12 col-md-6" style="padding-left: 50px">
+                <p class="ficha_titulo">Mis Datos</p>
+                <div class="mb-3 fw-bold">
+                  <label for="rut" class="for-label">Rut</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="rut"
+                    id="rut"
+                    placeholder="Ej: 123456789"
+                    value=""
+                  />
+                </div>
+                <div class="mb-3 fw-bold">
+                  <label for="nombres" class="for-label">Nombres</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="nombres"
+                    id="nombres"
+                    placeholder="Ej: Juan Andres"
+                    value=""
+                  />
+                </div>
+                <div class="mb-3 fw-bold">
+                  <label for="Apellidos" class="for-label">Apellidos</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="apellidos"
+                    id="apellidos"
+                    placeholder="Ej: Perez Lopez"
+                    value=""
+                  />
+                </div>
+                <div class="mb-3 fw-bold">
+                  <label for="correo" class="for-label">Correo</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="correo"
+                    id="correo"
+                    placeholder="Ej: JuanP123@gmail.com"
+                    value=""
+                  />
+                  <div id="correoHelp" class="form-text">
+                    Nunca compartiremos su correo electronico con nadie más
+                  </div>
+                </div>
+                <div class="mb-3 fw-bold">
+                  <label for="Direccion" class="for-label">Dirección</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    name="direccion"
+                    id="direccion"
+                    rows="3"
+                    placeholder="Ej: Padre Alonso de Ovalle 1586, Santiago, Region Metropolitana"
+                    value=""
+                  ></textarea>
+                </div>
+                <div class="mb-3 form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="subscripcion"
+                    value=""
+                  />
+                  <label class="form-check-label" for="subscripcion">
+                    <strong> Subscribirme a Xverse </strong>
+                  </label>
+                  <div id="subscripcionHelp" class="form-text">
+                    Deseo subscribirme a Xverse, por un costo de $5.000 pesos
+                    mesuales, para recibir correos con ofertas, promociones y
+                    eventos exclusivos
+                  </div>
+                </div>
+                <div class="mb-3 fw-bold">
+                  <label for="password" class="for-label">Contraseña</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    id="password"
+                    value=""
+                  />
+                </div>
+                <div class="mb-3 fw-bold">
+                  <label for="password2" class="for-label"
+                    >Repetir Contraseña</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password2"
+                    id="password2"
+                    value=""
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary boton-pag-datos">
+                  Actualizar mis datos
+                </button>
+                <button type="reset" class="btn btn-primary boton-pag-datos">
+                  Limpiar
+                </button>
+              </div>
+              <!-- fotod de peril -->
+              <div
+                class="col-sm-12 col-md-6"
+                style="padding-left: 150px; padding-top: 100px"
+              >
+                <table>
+                  <tr>
+                    <td>
+                      <img
+                        src="img/7085548f3d0372a08aea0291ddcee895.jpg"
+                        alt=""
+                        class="foto_img"
+                        style="padding-left: 50px"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button onclick="event.preventDefault(); document.getElementById('id_imagen').click();"> Seleccionar imagen </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+      <br><br><br>
+
+{% endblock content %}
+
+{% block script %}
+  <script src="{% static 'core/js/misdatos.js' %}"></script>
+{% endblock script %}
