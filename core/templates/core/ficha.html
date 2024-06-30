@@ -3,14 +3,6 @@
 {% load custom_filters %}
 
 {% block content %}
-
-<div class="instrucciones-para-el-alumno">
-    INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-    - PONE EL CODIGO HTML DE TU FICHA <br>
-    - USA LOS CAMPOS DE TU FICHA  <br>
-    - SI QUIERES PUEDES USAR EL LOS CAMPOS QUE SE TE ENTREGA <br>
-  </div>
-
     <form method="post" id="formulario-ficha">
 
         {% csrf_token %}
@@ -20,8 +12,7 @@
               <div class="col-12 col-md-6 ">
                 <div class="card mb-3">
                   <div class="d-flex justify-content-center align-items-center">
-                    {{ imagen }} 
-                    <img src="img/jueguito1.png" class="card-img-top-1" alt="..." />
+                    <img src="/media/{{ imagen }}" class="card-img-top-1" alt="">
                   </div>
                 </div>
               </div>
