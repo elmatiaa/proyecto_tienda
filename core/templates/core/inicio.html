@@ -48,6 +48,9 @@
             {{ producto.html_stock }}
           </p>
         </div>
+        <div class="card-body">
+          <a href= "{% url 'ficha' producto.id %}" class="btn btn-primary">Ver ficha</a>
+        </div>
 
       </a>
     </div>
