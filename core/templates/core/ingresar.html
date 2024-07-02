@@ -4,34 +4,57 @@
 
 {% block content %}
 
-<div class="instrucciones-para-el-alumno">
-  INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-  - Pagina para ingresar a la tienda <br>
-  - Pone aquí tu formulario <br>
-  - Si quieres puedes usar el formulario que se te entrega, pero debes cambiar su gráfica con la tuya <br>
-  - Si quieres mantener tu propio formulario, debes fijarte que tenga los "id" y "name" del formulario de Django <br>
-  - Por ejemplo, si tu campo se llama "username", debes usar los atributos <b>name="username"</b> y <b>id="id_username"</b> (Django le antepone "id_" al nombre del campo)
-</div>
-  
-  <div class="row justify-content-center">
-    <form id="form" method="POST" class="col-5 border border-3 p-4">
+  <div class="container mt-5" class="centrado">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div>
+          <img src="img/logo_xv_lg.png" alt="" style="padding-left: 30px" />
+        </div>
 
-      {% csrf_token %} 
-      
-      <!-- Botones -->
-      {{ form|as_bootstrap_form }}
-      
-      <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary"> Ingresar </button>
+        <div class="container">
+          <section>
+            <form class="row g-3" id="form" method="POST">
+              <div class="contanier-fluid bg-white py-4 pt-4" style="border-radius: 10px;">
+                <div class="row">
+                  <p class="ficha_titulo" style="text-align: center; padding-bottom: 20px;">
+                    Iniciar Sesión
+                  </p>
+
+                    <div class="row justify-content-center">
+                  
+                        {% csrf_token %} 
+                        
+                        {{ form|as_bootstrap_form }}
+                        
+                        <div class="text-center mt-4">
+                          <button type="submit" class="btn btn-primary"> Ingresar </button>
+                        </div>
+                        
+                    </div>
+
+                    {% include 'common/combobox_usuarios.html' %}
+
+                    <div class="text-center">
+                      <div >
+                        <br>
+                        <a href="registrarme">Registrarme</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="ingresar">Olvide mi contraseña</a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
-      
-    </form>
+    </div>
   </div>
 
-  <!-- Combobox de usuarios (QUITAR EN VERSION DE PRODUCCION DEL SOFTWARE) -->
-  <!-- NO LO BORRES PARA QUE PUEDAS HACER TUS PRUEBAS MAS RAPIDAMENTE  -->
-  {% include 'common/combobox_usuarios.html' %}
   
+
 {% endblock content %}
 
 {% block script %}
