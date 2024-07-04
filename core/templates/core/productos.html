@@ -4,46 +4,6 @@
 
 {% block content %}
 
-  <!-- <form id="form" method="POST" enctype="multipart/form-data">
-
-    {% csrf_token %}
-
-    form.categoria|as_bootstrap_field <br>
-    form.nombre|as_bootstrap_field <br>
-    form.descripcion|as_bootstrap_field <br>
-
-    form.precio|as_bootstrap_field <br>
-    form.descuento_subscriptor|as_bootstrap_field  <br>
-    form.descuento_oferta|as_bootstrap_field  <br> -->
-
-    <!-- AREA DE CUADRO DE IMAGEN: Imagen del producto (VER COMENTARIO "CUADRO DE IMAGEN" en script.js) -->
-    <!-- {% if form.imagen.value %}
-      <img id="cuadro-imagen" src="/media/{{ form.imagen.value }}">
-    {% else %}
-      <img id="cuadro-imagen" src="{% static 'core/img/sin-imagen.png' %}">
-    {% endif %} -->
-    
-    <!-- {{ form.imagen|as_bootstrap_field }} -->
-
-
-    <!-- AREA DE BOTONES -->
-    <!-- <div class="mt-2 mb-3 text-center">
-
-      <input class="btn btn-primary" type="submit" value="Guardar">
-
-      <a class="btn btn-primary" href="{% url 'productos' 'crear' '0' %}"> Nuevo </a> -->
-
-      <!-- AREA DE BOTON DE SELECCIONAR IMAGEN: Reemplaza el botón "Seleccionar archivo" por otro con Bootstrap (VER COMENTARIO "BOTON IMAGEN" en script.js) -->
-    <!-- <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('id_imagen').click();"> Seleccionar imagen </button>  
-
-      {% if form.instance.id %}
-        <a class="btn btn-primary"  href="{% url 'productos' 'eliminar' form.instance.id %}"> Eliminar </a>
-      {% endif %}
-
-    </div>
-
-  </form> -->
-
   {% comment %} 
   
   {% if productos %} 
@@ -55,7 +15,7 @@
       <p class="ficha_titulo text-center py-4 pt-4">Mantenedor de productos</p>
       <section>
         <br><br>
-        <form id="form" class="row g-3 needs-validation" method="POST">
+        <form id="form" class="row g-3 needs-validation" method="POST" enctype="multipart/form-data">
           <div class="container-fluid bg-white py-4 pt-4" style="border-radius: 10px;">
             <div class="row">
               <div class="col-sm-12 col-md-6 col-lg-6" style="padding-top: 0; padding-left: 50px;">
@@ -78,7 +38,7 @@
                   {{ form.descuento_oferta | as_bootstrap_field }}
                 </div>
                 <div class="d-grid gap-2 d-md-block" style="margin-left: 10px; padding: 50px;">
-                  <button class="btn btn-primary" type="button" style="margin-right: 30px;">Guardar</button>
+                  <button type="submit" id="" class="btn btn-primary" type="button" style="margin-right: 30px;">Guardar</button>
                   <a class="btn btn-primary" href="{% url 'productos' 'crear' '0' %}">Nuevo</a>
                   {% if form.instance.id %}
                     <a class="btn btn-primary" href="{% url 'productos' 'eliminar' form.instance.id %}">Eliminar</a>

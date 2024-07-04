@@ -278,10 +278,17 @@ def productos(request, accion, id):
         elif accion == 'actualizar':
             form = ProductoForm(request.POST, request.FILES, instance=Producto.objects.get(id=id))
 
+        elif accion == 'eliminar':
+            eliminado, mensaje = eliminar_registro(Producto, id)
+            messages.success(request, mensaje)
+            if eliminado:
+                return redirect(productos, 'crear', '0')
+            form = ProductoForm(instance=Producto.objects.get(id=id))
+
         if form.is_valid():
             producto = form.save()
             ProductoForm(instance=producto)
-            messages.success(request, f'El producto "{str(producto)}" se {accion} con éxito.')
+            messages.success(request, f'El producto "{str(producto)}" se logró {accion} con éxito.')
             return redirect(productos, 'actualizar', producto.id)
         else:
             show_form_errors(request, [form])
@@ -295,11 +302,11 @@ def productos(request, accion, id):
         elif accion == 'actualizar':
             form = ProductoForm(instance=Producto.objects.get(id=id))
         elif accion == 'eliminar':
-            eliminado, mensaje = eliminar_registro(producto, id)
+            eliminado, mensaje = eliminar_registro(Producto, id)
             messages.success(request, mensaje)
             if eliminado:
                 return redirect(productos, 'crear', '0')
-            form = ProductoForm(isinstance=Producto.objects.get(id=id))
+            form = ProductoForm(instance=Producto.objects.get(id=id))
 
     # CREAR: variable de contexto para enviar el formulario y todos los productos
     context = {

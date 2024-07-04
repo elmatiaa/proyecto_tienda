@@ -40,48 +40,49 @@
                   <tr>
                       <td class="td_fec_estado_boleta"> 
                           Vendido <br> 
-                          boleta.fecha_venta|formatear_fecha
+                          {{boleta.fecha_venta|formatear_fecha}}
                       <td class="td_fec_estado_boleta"> 
                           Despachado <br> 
-                          boleta.fecha_despacho|formatear_fecha
+                          {{boleta.fecha_despacho|formatear_fecha}}
                       <td class="td_fec_estado_boleta"> 
                           Entregado <br> 
-                          boleta.fecha_entrega|formatear_fecha
+                          {{boleta.fecha_entrega|formatear_fecha}}
                   </tr>
               </table>
           </div>
+          <section class="text-center py-4">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Productos</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">%Subscriptor</th>
+                  <th scope="col">%Oferta</th>
+                  <th scope="col">%Dsc total</th>
+                  <th scope="col">Descuentos</th>
+                  <th scope="col">Precio a pagar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for item in detalle_boleta%} 
+                  <tr>
+                    <th scope="col">{{ item.bodega.producto.categoria.nombre }}</th>
+                    <th scope="col">{{ item.bodega.producto.nombre }}</th>
+                    <th scope="col">{{ item.precio }}</th>
+                    <th scope="col">{{ item.descuento_subscriptor|formatear_porcentaje }}</th>
+                    <th scope="col">{{ item.descuento_oferta|formatear_porcentaje }}</th>
+                    <th scope="col">{{ item.descuento_total|formatear_porcentaje }}</th>
+                    <th scope="col">{{ item.descuentos }}</th>
+                    <th scope="col">{{ item.precio_a_pagar }}</th>
+                  </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </section>
       </div>
       </div>
     </div>
-      
-        <section class="text-center py-4">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Categoria</th>
-                <th scope="col">Productos</th>
-                <th scope="col">Precio</th>
-                <th scope="col">%Subscriptor</th>
-                <th scope="col">%Oferta</th>
-                <th scope="col">%Dsc total</th>
-                <th scope="col">Descuentos</th>
-                <th scope="col">Precio a pagar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="col">{{ item.bodega.producto.categoria.nombre }}</th>
-                <th scope="col">{{ item.bodega.producto.nombre }}</th>
-                <th scope="col">{{ item.precio }}</th>
-                <th scope="col">{{ item.descuento_subscriptor|formatear_porcentaje }}</th>
-                <th scope="col">{{ item.descuento_oferta|formatear_porcentaje }}</th>
-                <th scope="col">{{ item.descuento_total|formatear_porcentaje }}</th>
-                <th scope="col">{{ item.descuentos }}</th>
-                <th scope="col">{{ item.precio_a_pagar }}</th>
-              </tr>
-            </tbody>
-          </table>
-        </section>
 
     {% comment %} 
     
