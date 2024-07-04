@@ -129,7 +129,37 @@ def registrarme(request):
         # CREAR: usar RegistroUsuarioForm para obtener datos del formulario
         # CREAR: usar RegistroPerfilForm para obtener datos del formulario
         # CREAR: lógica para crear usuario
-        pass
+        form_usuario = RegistroUsuarioForm(request.POST)
+        form_perfil = RegistroPerfilForm(request.POST, request.FILES)
+
+        if form_usuario.is_valid() and form_perfil.is_valid():
+            usuario = form_usuario.save(commit=False)
+            usuario.is_staff = False
+            perfil = form_perfil.save(commit=False)
+            usuario.save()
+            perfil.usuario_id = usuario.id
+            perfil.tipo_usuario = 'Cliente'
+            perfil.save()
+            premium = ' y aprovechar tus descuentos especiales como cliente PREMIUM'
+            mensaje = f'Tu cuenta de usuario: "{usuario.username}" ha sido creada con éxito.'
+            messages.success(request, mensaje)
+            return redirect(ingresar)
+        else:
+            messages.error(request, f'No fue posible crear tu cuenta de cliente.')
+    
+    if request.method == 'GET':
+
+        form_usuario = RegistroUsuarioForm()
+        form_perfil = RegistroPerfilForm()
+    
+    context = {
+        'form_usuario': form_usuario,
+        'form_perfil': form_perfil,
+    }
+    
+
+
+
     
     if request.method == 'GET':
 
@@ -147,19 +177,37 @@ def misdatos(request):
 
     if request.method == 'POST':
         
-        # CREAR: un formulario UsuarioForm para recuperar datos del formulario asociados al usuario actual
-        # CREAR: un formulario RegistroPerfilForm para recuperar datos del formulario asociados al perfil del usuario actual
-        # CREAR: lógica para actualizar los datos del usuario
-        pass
+        form_usuario = UsuarioForm(request.POST, instance=request.user)
+        form_perfil = RegistroPerfilForm(request.POST, request.FILES, instance=request.user.perfil)
+
+        if form_usuario.is_valid() and form_perfil.is_valid():
+            usuario = form_usuario.save(commit=False)
+            perfil = form_perfil.save(commit=False)
+            usuario.save()
+            perfil.usuario_id = usuario.id
+            perfil.save()
+            if perfil.tipo_usuario in ['Administrador', 'Superusuario']:
+                tipo_cuenta = perfil.tipo_usuario
+            else:
+                tipo_cuenta = 'CLIENTE PREMIUM' if perfil.subscrito else 'cliente'
+            messages.success(request, f'Tu cuenta de {tipo_cuenta} ha sido actualizada con éxito.')
+            return redirect(misdatos)
+        else:
+            messages.error(request, f'Tu cuenta de {tipo_cuenta} no ha podido ser actualizada con éxito.')
+            show_form_errors(request, [form_usuario, form_perfil])
 
     if request.method == 'GET':
 
         # CREAR: un formulario UsuarioForm con los datos del usuario actual
         # CREAR: un formulario RegistroPerfilForm con los datos del usuario actual
-        pass
+        form_usuario = UsuarioForm(instance=request.user)
+        form_perfil = RegistroPerfilForm(instance=request.user.perfil)
     
     # CREAR: variable de contexto para enviar formulario de usuario y perfil
-    context = { }
+    context = {
+        'form_usuario': form_usuario,
+        'form_perfil': form_perfil,
+    }
 
     return render(request, 'core/misdatos.html', context)
 
@@ -167,9 +215,27 @@ def misdatos(request):
 def boleta(request, nro_boleta):
 
     # CREAR: lógica para ver la boleta
+    boleta = None
+    detalle_boleta = None
+
+    if Boleta.objects.filter(nro_boleta=nro_boleta).exists():
+
+        boleta = Boleta.objects.get(nro_boleta=nro_boleta)
+        boleta_es_del_usuario = Boleta.objects.filter(nro_boleta=nro_boleta, cliente=request.user.perfil).exists()
+        if boleta_es_del_usuario or request.user.is_staff:
+            detalle_boleta = DetalleBoleta.objects.filter(boleta=boleta)
+        else:
+            messages.error(request,f'Lo siento la boleta N° {nro_boleta} pertence a {boleta.cliente.usuario.first_name} {boleta.cliente.usuario.last_name}.')
+            boleta = None
+    
+    else:
+        messages.error(request, f'La boleta N° {nro_boleta} no existe en la base de datos.')
     
     # CREAR: variable de contexto para enviar boleta y detalle de la boleta
-    context = { }
+    context = {
+        'boleta': boleta,
+        'detalle_boleta': detalle_boleta,
+    }
 
     return render(request, 'core/boleta.html', context)
 
@@ -177,9 +243,26 @@ def boleta(request, nro_boleta):
 def ventas(request):
     
     # CREAR: lógica para ver las ventas
+    boletas = Boleta.objects.all()
+    historial = []
+
+    for boleta in boletas:
+        boleta_historial = {
+            'nro_boleta': boleta.nro_boleta,
+            'nom_cliente': f'{boleta.cliente.usuario.first_name} {boleta.cliente.usuario.last_name}',
+            'fecha_venta': boleta.fecha_venta,
+            'fecha_despacho': boleta.fecha_despacho,
+            'fecha_entrega': boleta.fecha_entrega,
+            'subscrito': 'Si' if boleta.total_a_pagar else 'No',
+            'total_a_pagar': boleta.total_a_pagar,
+            'estado': boleta.estado
+        }
+        historial.append(boleta_historial)
 
     # CREAR: variable de contexto para enviar historial de ventas
-    context = { }
+    context = {
+        'historial': historial
+    }
 
     return render(request, 'core/ventas.html', context)
 
@@ -189,15 +272,40 @@ def productos(request, accion, id):
     if request.method == 'POST':
         
         # CREAR: lógica para crear y actualizar un producto
-        pass
+        if accion == 'crear':
+            form = ProductoForm(request.POST, request.FILES)
+        
+        elif accion == 'actualizar':
+            form = ProductoForm(request.POST, request.FILES, instance=Producto.objects.get(id=id))
+
+        if form.is_valid():
+            producto = form.save()
+            ProductoForm(instance=producto)
+            messages.success(request, f'El producto "{str(producto)}" se {accion} con éxito.')
+            return redirect(productos, 'actualizar', producto.id)
+        else:
+            show_form_errors(request, [form])
+
 
     if request.method == 'GET':
 
         # CREAR: lógica para preparar la página para la acción de: crear, actualizar y eliminar un producto
-        pass
+        if accion == 'crear':
+            form = ProductoForm()
+        elif accion == 'actualizar':
+            form = ProductoForm(instance=Producto.objects.get(id=id))
+        elif accion == 'eliminar':
+            eliminado, mensaje = eliminar_registro(producto, id)
+            messages.success(request, mensaje)
+            if eliminado:
+                return redirect(productos, 'crear', '0')
+            form = ProductoForm(isinstance=Producto.objects.get(id=id))
 
     # CREAR: variable de contexto para enviar el formulario y todos los productos
-    context = { }
+    context = {
+        'form': form,
+        'productos': Producto.objects.all()
+    }
 
     return render(request, 'core/productos.html', context)
 

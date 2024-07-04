@@ -3,48 +3,53 @@
 {% load custom_filters %}
 
 {% block content %}
-    
-    <div class="instrucciones-para-el-alumno">
-        INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-        - Puedes probar una boleta con el siguiente link<br><br>
-        &nbsp;&nbsp;&nbsp;
-        <a href="{% url 'boleta' 1 %}">Ver boleta 1</a><br><br>
+
+<div class="instrucciones-para-el-alumno">
+    INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
+    - Puedes probar una boleta con el siguiente link<br><br>
+    &nbsp;&nbsp;&nbsp;
+    <a href="{% url 'boleta' 1 %}">Ver boleta 1</a><br><br>
+</div>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Detalle de la Boleta N° {{ boleta.nro_boleta }}</h3>
+        </div>
+        <div class="card-body">
+            {% if boleta %}
+                <p><strong>Cliente:</strong> {{ boleta.cliente.usuario.first_name }} {{ boleta.cliente.usuario.last_name }}</p>
+                <p><strong>Fecha de Venta:</strong> {{ boleta.fecha_venta|formatear_fecha }}</p>
+                <p><strong>Fecha de Despacho:</strong> {{ boleta.fecha_despacho|formatear_fecha }}</p>
+                <p><strong>Fecha de Entrega:</strong> {{ boleta.fecha_entrega|formatear_fecha }}</p>
+                <p><strong>Monto Total:</strong> {{ boleta.total_a_pagar }}</p>
+                <p><strong>Estado:</strong> {{ boleta.estado }}</p>
+
+                <h4>Detalle de Productos</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detalle in detalle_boleta %}
+                            <tr>
+                                <td>{{ detalle.producto.nombre }}</td>
+                                <td>{{ detalle.cantidad }}</td>
+                                <td>{{ detalle.precio_unitario }}</td>
+                                <td>{{ detalle.total }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No hay información disponible para la boleta especificada.</p>
+            {% endif %}
+        </div>
     </div>
-    
-
-
-    <!-- AREA DE TABLA: Datos de las boletas de compras del cliente (VER COMENTARIO "TABLA AVANZADA" en script.js) -->
-    <table id="tabla-principal" class="table table-hover">
-        <thead>
-            <tr>
-                <th> Nro boleta </th>
-                <th> Venta </th>
-                <th> Despacho </th>
-                <th> Entrega </th>
-                <th> Monto total </th>
-                <th> Estado actual </th>
-                <th> Opciones </th>
-            </tr>
-        </thead> 
-        <tbody>
-            {% for boleta in historial %}
-                {% if boleta.estado == 'Anulado' %}
-                    <tr class="letra-boleta-anulada"> 
-                {% else %}
-                    <tr>
-                {% endif %}
-                    <td> {{ boleta.nro_boleta }} </td>
-                    <td> {{ boleta.fecha_venta|formatear_fecha }} </td>
-                    <td> {{ boleta.fecha_despacho|formatear_fecha }} </td>
-                    <td> {{ boleta.fecha_entrega|formatear_fecha }} </td>
-                    <td> {{ boleta.total_a_pagar }} </td>
-                    <td> {{ boleta.estado }} </td>
-                    <td>
-                        <a href="{% url 'boleta' boleta.nro_boleta %}" class="btn btn-sm btn-primary">Detalle</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>       
-    </table>
-
-{% endblock content %}
+</div>
+{% endblock %}

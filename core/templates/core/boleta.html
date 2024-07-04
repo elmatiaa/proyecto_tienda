@@ -9,76 +9,79 @@
     {% if boleta %} 
     
     {% endcomment %}
-    
+    <div class="card container" style="width: 60rem;">
+      <div class="card-body">
         <div class="row">
-            <div class="col-6 text-right">
-                <h1>
+          <div class="col-6 text-right">
+              <h1>
 
-                    Boleta N° 
-                    
-                    boleta.nro_boleta 
-                    
-                    de 
-                    
-                    boleta.cliente.usuario.first_name
-                    boleta.cliente.usuario.last_name
+                  Boleta N° {{ boleta.nro_boleta }} 
+                  
+                  de 
+                  
+                  {{ boleta.cliente.usuario.first_name }}
+                  {{ boleta.cliente.usuario.last_name}}
 
-                </h1>
-            </div>
-            <div class="col-6">
-
-                <div class="instrucciones-para-el-alumno">
-                    INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-                    - Pega tu código html de estados de la boleta
-                </div>
-
-                <table class="mb-3" style="float: right">
-                    <tr>
-                        <td class="td_img_estado_boleta"> 
-                            <img src="{% static 'core/img/vendido.png' %}" style="width: 75px;">
-                        </td>
-                        <td class="td_img_estado_boleta"> 
-                            <img src="{% static 'core/img/despachado.png' %}" style="width: 75px;">
-                        </td>
-                        <td class="td_img_estado_boleta"> 
-                            <img src="{% static 'core/img/entregado.png' %}" style="width: 75px;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td_fec_estado_boleta"> 
-                            Vendido <br> 
-                            boleta.fecha_venta|formatear_fecha
-                        <td class="td_fec_estado_boleta"> 
-                            Despachado <br> 
-                            boleta.fecha_despacho|formatear_fecha
-                        <td class="td_fec_estado_boleta"> 
-                            Entregado <br> 
-                            boleta.fecha_entrega|formatear_fecha
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-
-        <div class="instrucciones-para-el-alumno">
-            INSTRUCCIONES PARA EL ALUMNO (ELIMINALO DESPUES DE LEERLO):<br>
-            - Pega tu código html que muestra los items de la boleta
-            - Puedes usar los campo sugeridos dentro de la tabla, pero tienes 
-              que encerrarlos entre dobles llaves "{{" y usar el filtro
-        </div>
-
-        item.bodega.producto.categoria.nombre  <br>
-        item.bodega.producto.nombre  <br>
-        item.precio|formatear_dinero  <br>
-        item.descuento_subscriptor|formatear_porcentaje  <br>
-        item.descuento_oferta|formatear_porcentaje  <br>
-        item.descuento_total|formatear_porcentaje  <br>
-        item.descuentos|formatear_dinero  <br>
-        item.precio_a_pagar|formatear_dinero  <br>
-    
-        boleta.monto_sin_iva|formatear_dinero  <br>
-        boleta.iva|formatear_dinero  <br>
-        boleta.total_a_pagar|formatear_dinero  <br>
+              </h1>
+          </div>
+          <div class="col-6">
+              <table class="mb-3" style="float: right">
+                  <tr>
+                      <td class="td_img_estado_boleta"> 
+                          <img src="{% static 'core/img/vendido.png' %}" style="width: 75px;">
+                      </td>
+                      <td class="td_img_estado_boleta"> 
+                          <img src="{% static 'core/img/despachado.png' %}" style="width: 75px;">
+                      </td>
+                      <td class="td_img_estado_boleta"> 
+                          <img src="{% static 'core/img/entregado.png' %}" style="width: 75px;">
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="td_fec_estado_boleta"> 
+                          Vendido <br> 
+                          boleta.fecha_venta|formatear_fecha
+                      <td class="td_fec_estado_boleta"> 
+                          Despachado <br> 
+                          boleta.fecha_despacho|formatear_fecha
+                      <td class="td_fec_estado_boleta"> 
+                          Entregado <br> 
+                          boleta.fecha_entrega|formatear_fecha
+                  </tr>
+              </table>
+          </div>
+      </div>
+      </div>
+    </div>
+      
+        <section class="text-center py-4">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Categoria</th>
+                <th scope="col">Productos</th>
+                <th scope="col">Precio</th>
+                <th scope="col">%Subscriptor</th>
+                <th scope="col">%Oferta</th>
+                <th scope="col">%Dsc total</th>
+                <th scope="col">Descuentos</th>
+                <th scope="col">Precio a pagar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="col">{{ item.bodega.producto.categoria.nombre }}</th>
+                <th scope="col">{{ item.bodega.producto.nombre }}</th>
+                <th scope="col">{{ item.precio }}</th>
+                <th scope="col">{{ item.descuento_subscriptor|formatear_porcentaje }}</th>
+                <th scope="col">{{ item.descuento_oferta|formatear_porcentaje }}</th>
+                <th scope="col">{{ item.descuento_total|formatear_porcentaje }}</th>
+                <th scope="col">{{ item.descuentos }}</th>
+                <th scope="col">{{ item.precio_a_pagar }}</th>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
     {% comment %} 
     
@@ -89,78 +92,5 @@
     {% endif %} 
     
     {% endcomment %}
-    
-
-    <div class="card container" style="width: 60rem;">
-        <div class="card-body">
-          <p class="ficha_titulo" >Detalle Boleta (N°666) 
-            <i class="fas fa-money-bill" style="float: right; margin-right: 10px;">
-            <img src="img/sign-check-icon_34365.png" alt="" class="icono_check">
-            <img src="img/sign-check-icon_34365.png" alt=""class="icono_check">
-            <img src="img/en-espera.png" alt=""class="icono_espera"></i>
-            <i class="texto_boleta fas fa-money-bill" style="float: right; margin-right: 10px;" > Vendido &nbsp; &nbsp; Despachado &nbsp; &nbsp;Entregado&nbsp; &nbsp;</i>
-         </p>
-          <p></p>
-          <div><i class="fas fa-money-bill"></i></div> <!-- Utiliza "fas" en lugar de "fa-solid" -->
-          <section class="text-center py-4">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Categoria</th>
-                  <th scope="col">Productos</th>
-                  <th scope="col">Precio</th>
-                  <th scope="col">%Subscriptor</th>
-                  <th scope="col">%Oferta</th>
-                  <th scope="col">%Dsc total</th>
-                  <th scope="col">Descuentos</th>
-                  <th scope="col">Precio a pagar</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td scope="col">Nintendo Switch</td>
-                  <td scope="col">Splatoon 3</td>
-                  <td scope="col">$49.000</td>
-                  <td scope="col">5%</td>
-                  <td scope="col">59%</td>
-                  <td scope="col">64%</td>
-                  <td scope="col">31.360</td>
-                  <td scope="col">$17.640</td>
-                </tr>
-                <tr>
-                  <td scope="col">Play Station 5</td>
-                  <td scope="col">EAFC 24</td>
-                  <td scope="col">$37.900</td>
-                  <td scope="col">5%</td>
-                  <td scope="col">0%</td>
-                  <td scope="col">5%</td>
-                  <td scope="col">3.790</td>
-                  <td scope="col">$34.110</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-      
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom: 20px; padding-right: 20px;">
-            <label for="Precio-sin-iva" style="font-weight: bold;">Precio sin iva: </label>
-            <div class="mb-3">
-              <input type="text" class="form-control" id="Precio-sin-iva" placeholder="$86.900" disabled>
-            </div>
-          </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom: 20px; padding-right: 20px;">
-            <label for="Valor-iva" style="font-weight: bold;">Valor iva: </label>
-            <div class="mb-3">
-              <input type="text" class="form-control" id="Valor-iva" placeholder="$16.610" disabled>
-            </div>
-          </div>
-      
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-bottom: 20px; padding-right: 20px;">
-            <label for="Total-pagar" style="font-weight: bold;">Total a pagar: </label>
-            <div class="mb-3">
-              <input type="text" class="form-control" id="Total-pagar" placeholder="$103.510" disabled>
-            </div>
-          </div>
-        </div>
-      </div>
 
 {% endblock content %}

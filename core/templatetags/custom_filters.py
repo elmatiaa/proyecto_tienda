@@ -6,6 +6,7 @@ register = template.Library()
 
 @register.filter
 def formatear_numero(value):
+    print(value)
     value = round(value)
     value = f'{value:,}'
     value = value.replace(',', '.')

@@ -50,114 +50,100 @@
   
   {% endcomment %}
 
-    <div class="card container">
-      <div class="card-body">
-        <p class="ficha_titulo text-center py-4 pt-4" >Mantenedor de productos</p>
+  <div class="card container">
+    <div class="card-body">
+      <p class="ficha_titulo text-center py-4 pt-4">Mantenedor de productos</p>
       <section>
         <br><br>
-        <form id="form" class="row g-3 needs-validation" method="POST" >
-          <div class="contanier-fluid bg-white py-4 pt-4" style="border-radius: 10px;">
+        <form id="form" class="row g-3 needs-validation" method="POST">
+          <div class="container-fluid bg-white py-4 pt-4" style="border-radius: 10px;">
             <div class="row">
               <div class="col-sm-12 col-md-6 col-lg-6" style="padding-top: 0; padding-left: 50px;">
-  
-                <div  class="mb-3 fw-bold py-3" >
-                  <label for="id_producto" class="form-label-1">ID producto</label>
-                  <input type="text" class="form-control" id="id_producto" value="" required>
+                <div class="mb-3 fw-bold py-3">
+                  {{ form.categoria | as_bootstrap_field }}
                 </div>
                 <div class="mb-3 fw-bold py-3">
-                  <label for="validationDefault04" class="form-label-1">Categoria</label>
-                  <select class="form-select" id="validationDefault04" required>
-                    <option selected disabled value=""></option>
-                    <option>Nintendo 64</option>
-                    <option>Juego Xbox</option>
-                    <option>PS4</option>
-                  </select>
+                  {{ form.nombre | as_bootstrap_field }}
                 </div>
                 <div class="mb-3 fw-bold py-3">
-                  <label for="nombre_producto" class="form-label-1">Nombre Producto</label>
-                  <input type="text" class="form-control" id="nombre_producto" placeholder="Ej: Mario Kart 8" required>
+                  {{ form.descripcion | as_bootstrap_field }}
                 </div>
                 <div class="mb-3 fw-bold py-3">
-                  <label for="descripcion_producto" class="form-label-1">Descripción</label>
-                  <textarea type="text" class="form-control" id="descripcion_producto" rows="3" placeholder="Ej: " required></textarea>
+                  {{ form.precio | as_bootstrap_field }}
                 </div>
                 <div class="mb-3 fw-bold py-3">
-                  <label for="precio_producto" class="form-label-1">Precio</label>
-                  <input type="text" class="form-control" id="precio_producto" required>
+                  {{ form.descuento_subscriptor | as_bootstrap_field }}
                 </div>
                 <div class="mb-3 fw-bold py-3">
-                  <label for="descu_producto" class="form-label-1"> % Descuento Suscriptor</label>
-                  <input type="text" class="form-control" id="descu_producto" required>
+                  {{ form.descuento_oferta | as_bootstrap_field }}
                 </div>
-                <div class="mb-3 fw-bold py-3">
-                  <label for="descu_oferta" class="form-label-1"> % Descuento por oferta</label>
-                  <input type="text" class="form-control " id="descu_oferta" required>
-                </div>
-                <div class="d-grid gap-2 d-md-block" style=" margin-left: 10px; padding: 50px;">
+                <div class="d-grid gap-2 d-md-block" style="margin-left: 10px; padding: 50px;">
                   <button class="btn btn-primary" type="button" style="margin-right: 30px;">Guardar</button>
-                  <a class="btn btn-primary" href="{% url 'productos' 'crear' '0' %}"> Nuevo </a>
+                  <a class="btn btn-primary" href="{% url 'productos' 'crear' '0' %}">Nuevo</a>
                   {% if form.instance.id %}
-                    <a class="btn btn-primary"  href="{% url 'productos' 'eliminar' form.instance.id %}"> Eliminar </a>
+                    <a class="btn btn-primary" href="{% url 'productos' 'eliminar' form.instance.id %}">Eliminar</a>
                   {% endif %}
                 </div>
-                
               </div>
-              <!-- foto de juego-->
-              {% if form.imagen.value %}
-                <img id="cuadro-imagen" src="/media/{{ form.imagen.value }}">
-              {% else %}
-                <img id="cuadro-imagen" src="{% static 'core/img/sin-imagen.png' %}">
-              {% endif %}
-              
-              {{ form.imagen|as_bootstrap_field }}
-              
+              <!-- Foto de juego -->
+              <div class="col-sm-12 col-md-6 col-lg-6 d-flex justify-content-center align-items-center flex-column">
+                {% if form.imagen.value %}
+                  <img id="cuadro-imagen" src="/media/{{ form.imagen.value }}">
+                {% else %}
+                  <img id="cuadro-imagen" src="{% static 'core/img/sin-imagen.png' %}">
+                {% endif %}
+                <input type="file" id="id_imagen" name="imagen" style="display: none;" onchange="previewImage(event)">
+                <button class="btn btn-primary boton-pag-datos mt-3" onclick="event.preventDefault(); document.getElementById('id_imagen').click();">Seleccionar imagen</button>
+              </div>
             </div>
-            <section class="text-center" style="padding-left: 10px; " >
+            <section class="text-center" style="padding-left: 10px;">
               <table id="tabla-principal" class="table table-hover">
                 <thead>
-                    <tr>
-                        <th> ID </th>
-                        <th> Categoría </th>
-                        <th> Nombre </th>
-                        <th> Descripción </th>
-                        <th> Precio </th>
-                        <th> %Subs </th>
-                        <th> %Oferta </th>
-                        <th> Imagen </th>
-                        <th> Editar </th>
-                        <th> Eliminar </th>
-                    </tr>
+                  <tr>
+                    <th>ID</th>
+                    <th>Categoría</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>% Subs</th>
+                    <th>% Oferta</th>
+                    <th>Imagen</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    {% for producto in productos %}  
-                      producto.id
-                      producto.categoria
-                      producto.nombre
-                      producto.descripcion
-                      producto.precio|formatear_dinero
-                      producto.descuento_subscriptor|formatear_porcentaje
-                      producto.descuento_oferta|formatear_porcentaje
+                  {% for producto in productos %}
+                    <tr>
+                      <td>{{ producto.id }}</td>
+                      <td>{{ producto.categoria }}</td>
+                      <td>{{ producto.nombre }}</td>
+                      <td>{{ producto.descripcion }}</td>
+                      <td>{{ producto.precio|formatear_dinero }}</td>
+                      <td>{{ producto.descuento_subscriptor|formatear_porcentaje }}</td>
+                      <td>{{ producto.descuento_oferta|formatear_porcentaje }}</td>
                       <td>
-                          <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
+                        <img src="/media/{{ producto.imagen }}" class="producto-sm" alt="">
                       </td>
                       <td>
-                          <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-primary btn-sm"> Editar </a>
+                        <a href="{% url 'productos' 'actualizar' producto.id %}" class="btn btn-primary btn-sm">Editar</a>
                       </td>
                       <td>
-                          <form method="delete">
-                              <a href="{% url 'productos' 'eliminar' producto.id %}" class="btn btn-danger btn-sm"> Eliminar </a>
-                          </form>
+                        <form method="post" action="{% url 'productos' 'eliminar' producto.id %}">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
                       </td>
-                        </tr>
-                    {% endfor %}
+                    </tr>
+                  {% endfor %}
                 </tbody>
-            </table>
+              </table>
             </section>
           </div>
         </form>
       </section>
-      </div>
     </div>
+  </div>
 
   {% comment %}     
   

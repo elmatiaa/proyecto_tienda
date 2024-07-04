@@ -48,6 +48,10 @@ $(document).ready(function() {
         'password2': {
           required: true,
           equalTo: '#id_password1'
+        },
+        'imagen':
+        {
+          required: true,
         }
       },
       messages: {
@@ -80,7 +84,10 @@ $(document).ready(function() {
         'password2': {
           required: 'Debe ingresar una contraseña',
           equalTo: 'Debe repetir la contraseña anterior'
-        }
+        },
+        'imagen': {
+          required: 'Este campo es requerido'
+        },
       },
       errorPlacement: function(error, element) {
         error.insertAfter(element); // Inserta el mensaje de error después del elemento
